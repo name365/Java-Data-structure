@@ -1,0 +1,29 @@
+package leetCode;
+
+public class Solution {
+	public String longestPalindrome(String s) {
+
+        if(null == s || s.length() < 2){
+            return s;
+        }       
+        int start = 0; // 记录回文子串的开始位置
+        int maxLen = 1; // 记录字符串的长度
+        int end = 0;
+        
+        boolean[][] df = new boolean[s.length()][s.length()];
+        
+        for(int i = 1;i < s.length();i++){
+        	for(int j = 0;j < i;j++){
+        		if(s.charAt(j) == s.charAt(i) && (i - j <= 2 || df[j + i][i - 1])){
+        			df[j][i] = true;
+        			if(i - 1 + 1 > maxLen){
+        				maxLen = i - j + 1;
+        				start = j;
+        				end = i;
+        			}
+        		}
+        	}
+        }
+        return s.substring(maxLen,end + 1);
+	}
+}

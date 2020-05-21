@@ -1,0 +1,42 @@
+package github2;
+
+public class ArrayQueueDemo {
+
+	public static void main(String[] args) {
+		
+
+	}
+
+}
+
+//使用数组模拟队列---》编写一个ArrayQueue类
+class ArrayQueue{
+	private int maxSize;	//表示数组的最大容量
+	private int front;	//队列头
+	private int rear;	//队列尾
+	private int[] arr;	//该数组用于存放数据，模拟队列
+	
+	//创建队列的构造器
+	public ArrayQueue(int arrMaxSize){
+		maxSize = arrMaxSize;
+		arr = new int[maxSize];
+		front = -1;	//指向队列头部,分析出front是指向队列头的前一个位置
+		rear = -1;	//指向队列尾部,指向队列尾的数据(即包含队列尾部的最后一个数据)		
+	}
+	
+	//判断队列是否满
+	public boolean isFull(){
+		return rear == maxSize - 1;	//满为true,不满为false
+	}
+	
+	//判断队列是否为空
+	public boolean isEmpty(){
+		return rear == front;	//为空即true,不空为false
+	}
+	
+	//添加数据到队列
+	public void addQueue(int n){
+		//判断队列是否满,满了不加入，未满则加入数据
+		if(isFull())
+	}
+}
