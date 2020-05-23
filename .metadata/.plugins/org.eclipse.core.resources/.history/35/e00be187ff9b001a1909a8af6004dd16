@@ -1,0 +1,108 @@
+package git;
+/*
+ * 此代码添加数据有问题,待优化
+ */
+public class SingleLinkedListTest {
+
+	public static void main(String[] args) {
+		//测试一下
+		//1.创建节点
+		HeroNode hero = new HeroNode(1,"宋江","及时雨");
+		HeroNode hero2 = new HeroNode(2,"卢俊义","玉麒麟");
+		HeroNode hero3 = new HeroNode(3,"吴用","智多星");
+		HeroNode hero4 = new HeroNode(4,"公孙胜","入云龙");
+		HeroNode hero5 = new HeroNode(5,"关胜","大刀");
+		
+		//创建一个链表
+		SingleLinkedList singk = new SingleLinkedList();
+		
+		//添加数据到链表
+		singk.add(hero);
+		singk.add(hero2);
+		singk.add(hero3);
+		singk.add(hero4);
+		singk.add(hero5); 
+		
+		//显示链表
+		singk.list();
+	}
+
+}
+
+//定义一个SingleLinkedList类,来管理我们的英雄
+class SingleLinkedList{
+	//先初始化一个头节点,头节点不要动(防止后期找不到此链表),不存放具体数据
+	private HeroNode head = new HeroNode(0, "", "");
+	
+	//第一种方式:第一种方法在添加英雄时，直接添加到链表的尾部
+	//添加节点到单向链表,思路，当不考虑编号的顺序时
+	//1.找到当前链表的最后节点
+	//2.将最后这个节点的next域指向这个新的节点
+	public void add(HeroNode heroNode){
+		//由于头节点head不能动,所以需要一个辅助变量 temp
+		HeroNode temp = head;
+		//遍历链表,找到最后
+		while(true){
+			//找到链表的最后
+			if(temp.next == null){	//判定找到了的条件
+				break;
+			}
+			//如果没有找到,将temp后移
+			temp = temp.next;
+		}
+		//当退出循环时,temp就指向了链表的最后
+		//将最后这个节点的next --指向--》 新的节点
+		temp.next = heroNode;
+	}
+	
+	//显示链表[遍历]
+	public void list(){
+		//判断链表是否为空
+		if(head.next == null){
+			System.out.println("链表为空！！！");
+			return;
+		}
+		//由于头节点head不能动,所以需要一个辅助变量 temp
+		HeroNode temp = head;
+		while(true){
+			//判断是否到链表的最后
+			if(temp == null){
+				break;
+			}
+			//如果不为空，输出节点的信息
+			System.out.println(temp);
+			//注意！！！！将next后移(因为不向后移动,会造成死循环)
+			temp = temp.next;
+		}
+	}
+	
+	//第二种方式在添加英雄时，根据排名将英雄插入到指定位置
+	//(如果有这个排名，则添加失败，并给出提示)
+	public void addByOrder(HeroNode heroNode){
+		//由于头节点head不能动,所以需要一个辅助变量 temp,找到添加的位置
+		
+	}
+
+}
+
+//定义一个HeroNode,每个HeroNode对象就是一个节点
+class HeroNode{
+	public int id;
+	public String name;
+	public String nickName;	//别名,昵称
+	public HeroNode next;	//指向下一个节点
+	
+	//构造器
+	public HeroNode(int id, String name, String nickName) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.nickName = nickName;
+	}
+
+	//为了显示方便，重写toString方法
+	@Override
+	public String toString() {
+		return "HeroNode [id=" + id + ", name=" + name + ", nickName=" + nickName + "]";
+	}
+}

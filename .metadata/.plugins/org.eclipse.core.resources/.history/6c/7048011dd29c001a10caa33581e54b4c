@@ -1,0 +1,100 @@
+package github2;
+
+public class Josepfu {
+
+	public static void main(String[] args) {
+		//测试构建环形链表和遍历是否正确
+		CircleLinkList cingk = new CircleLinkList();
+		cingk.addBoy(5);	//加入五个节点
+		cingk.shoeBoy();	//显示一下
+	}
+
+}
+//创建一个单项环形链表
+class CircleLinkList{
+	//创建一个first节点,当前没有编号
+	private Boy first = null;
+	//添加新节点,构成一个环形的链表
+	public void addBoy(int nums){
+		//nums 进行数据校验
+		if(nums < 1){
+			System.out.println("nums的值不正确");
+			return;
+		}
+		Boy curBoy = null;	//辅助变量,帮助构建环形链表
+		//使用循环创建环形链表
+		for(int i = 1;i <= nums;i++){
+			//根据编号创建节点
+			Boy boy = new Boy(i);
+			//如果是头节点
+			if(i == 1){
+				first = boy;
+				first.setNext(first); //构成环状
+				curBoy = first;	//让curBoy指向第一个节点
+			}else{
+				curBoy.setNext(boy);
+				boy.setNext(first);
+				curBoy = boy;
+			}
+		}
+	}
+	
+	//遍历当前环形链表
+	public void shoeBoy(){
+		//判断链表是否为空
+		if(first == null){
+			System.out.println("链表为空");
+			return;
+		}
+		//因为first头节点不能动,因此创建一个辅助指针完成遍历
+		Boy curBoy = first;
+		while(true){
+			System.out.printf("当前节点的编号 %d\n",curBoy.getId());
+			if(curBoy.getNext() == first){	//遍历完成
+				break;
+			}
+			curBoy = curBoy.getNext();	//让curBoy后移 
+		}
+	}
+	
+	//根据用户的输入,计算人物出圈的顺序
+	/**
+	  * 
+	  * @Description 
+	  * @author subei
+	  * @date 2020年5月23日下午4:45:48
+	  * @param startId  表示从第几个人物开始数数
+	  * @param countNum 表示数几下
+	  * @param nums  表示最初有几个人物在圈中
+	 */
+	public void countBoy(int startId,int countNum,int nums){
+		
+	}
+}
+
+//创建一个Boy类,表示一个节点
+class Boy{
+	private int id;	//编号
+	private Boy next;	//指向下一个节点,默认为null
+	
+	public Boy(int id){
+		this.id = id;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Boy getNext() {
+		return next;
+	}
+
+	public void setNext(Boy next) {
+		this.next = next;
+	}
+	
+}

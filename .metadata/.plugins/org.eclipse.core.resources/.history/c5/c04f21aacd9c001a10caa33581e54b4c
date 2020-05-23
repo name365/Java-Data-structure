@@ -1,0 +1,64 @@
+package github2;
+
+public class Josepfu {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
+//创建一个单项环形链表
+class CircleLinkList{
+	//创建一个first节点,当前没有编号
+	private Boy first = null;
+	//添加新节点,构成一个环形的链表
+	public void addBoy(int nums){
+		//nums 进行数据校验
+		if(nums < 1){
+			System.out.println("nums的值不正确");
+			return;
+		}
+		Boy curBoy = null;	//辅助变量,帮助构建环形链表
+		//使用循环创建环形链表
+		for(int i = 1;i <= nums;i++){
+			//根据编号创建节点
+			Boy boy = new Boy(i);
+			//如果是头节点
+			if(i == 1){
+				first = boy;
+				first.setNext(first); //构成环状
+				curBoy = first;	//让curBoy指向第一个节点
+			}
+			
+		}
+	}
+}
+
+
+//创建一个Boy类,表示一个节点
+class Boy{
+	private int id;	//编号
+	private Boy next;	//指向下一个节点,默认为null
+	
+	public Boy(int id){
+		this.id = id;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Boy getNext() {
+		return next;
+	}
+
+	public void setNext(Boy next) {
+		this.next = next;
+	}
+	
+}
