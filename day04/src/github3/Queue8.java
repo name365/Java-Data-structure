@@ -14,7 +14,7 @@ public class Queue8 {
 		Queue8 Q8 = new Queue8();
 		Q8.Qnum(0);
 		System.out.printf("一共有%d解法", count);
-		System.out.printf("一共判断冲突的次数%d次", judgeCount);	//15720次
+		System.out.printf("一共判断冲突的次数%d次", judgeCount); // 15720次
 	}
 
 	// 自定义一个方法,放置n个皇后
@@ -58,6 +58,7 @@ public class Queue8 {
 
 	// 定义一个方法,将皇后摆放的位置输出
 	public void print() {
+		count++;
 		for (int i = 0; i < array.length; i++) {
 			System.out.print(array[i] + " ");
 		}
