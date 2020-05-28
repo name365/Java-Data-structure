@@ -1,0 +1,12 @@
+package git;
+
+public class Sort {
+
+	//比如计算1-100所有数字之和, 设计如下两种算法：
+	public static void main(String[] args) {
+		
+	}
+	
+	
+
+}

@@ -1,0 +1,13 @@
+package git;
+
+public class Zsort {
+
+	public static void main(String[] args) {
+		int i = 1;
+		int j = 2;
+		++i;
+		j++;
+		int m = i + j;
+	}
+
+}

@@ -2229,3 +2229,34 @@ Caused by: org.eclipse.aether.transfer.ArtifactNotFoundException: Could not find
 
 !ENTRY org.eclipse.recommenders.models.rcp 1 0 2020-05-28 11:45:44.087
 !MESSAGE org.eclipse.recommenders:index::zip:0.0.0 could not be resolved from the model repositories. Are you offline?
+
+!ENTRY org.eclipse.recommenders.types.rcp 1 4 2020-05-28 20:31:28.037
+!MESSAGE Full project indexing required:
+  [+] F:\java\JDK\jre\lib\charsets.jar
+  [+] F:\java\JDK\jre\lib\ext\access-bridge-64.jar
+  [+] F:\java\JDK\jre\lib\ext\cldrdata.jar
+  [+] F:\java\JDK\jre\lib\ext\dnsns.jar
+  [+] F:\java\JDK\jre\lib\ext\jaccess.jar
+  [+] F:\java\JDK\jre\lib\ext\jfxrt.jar
+  [+] F:\java\JDK\jre\lib\ext\localedata.jar
+  [+] F:\java\JDK\jre\lib\ext\nashorn.jar
+  [+] F:\java\JDK\jre\lib\ext\sunec.jar
+  [+] F:\java\JDK\jre\lib\ext\sunjce_provider.jar
+  [+] F:\java\JDK\jre\lib\ext\sunmscapi.jar
+  [+] F:\java\JDK\jre\lib\ext\sunpkcs11.jar
+  [+] F:\java\JDK\jre\lib\ext\zipfs.jar
+  [+] F:\java\JDK\jre\lib\jce.jar
+  [+] F:\java\JDK\jre\lib\jfr.jar
+  [+] F:\java\JDK\jre\lib\jsse.jar
+  [+] F:\java\JDK\jre\lib\resources.jar
+  [+] F:\java\JDK\jre\lib\rt.jar
+
+!STACK 0
+org.eclipse.recommenders.utils.Logs$LogTraceException
+	at org.eclipse.recommenders.utils.Logs$LogTraceException.newTrace(Logs.java:381)
+	at org.eclipse.recommenders.utils.Logs.log(Logs.java:134)
+	at org.eclipse.recommenders.internal.types.rcp.ProjectTypesIndex.needsRebuild(ProjectTypesIndex.java:169)
+	at org.eclipse.recommenders.internal.types.rcp.ProjectTypesIndex.startUp(ProjectTypesIndex.java:122)
+	at com.google.common.util.concurrent.AbstractIdleService$2$1.run(AbstractIdleService.java:54)
+	at com.google.common.util.concurrent.Callables$3.run(Callables.java:93)
+	at java.lang.Thread.run(Unknown Source)

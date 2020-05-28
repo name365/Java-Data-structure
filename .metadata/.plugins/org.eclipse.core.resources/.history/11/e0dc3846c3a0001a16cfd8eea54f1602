@@ -1,0 +1,17 @@
+package git;
+
+public class Zsort {
+
+	public static void main(String[] args) {
+		int m = 0;
+		int i = 0;
+		for(m = 1;m <= 100;m++){
+			i = 1;
+			while(i < n){
+				i = i * 2;
+			}
+		}
+		System.out.println("i = " + i);
+	}
+
+}

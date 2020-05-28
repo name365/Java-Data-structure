@@ -1,0 +1,14 @@
+package git;
+
+public class Sort {
+
+	//比如计算1-100所有数字之和, 设计如下两种算法：
+	public static void main(String[] args) {
+		int total = 0;
+		int end = 100;
+		for(int i = 1;i <= end;i++){
+			total += i;
+		}
+		System.out.println("total = " + total);
+	}
+}

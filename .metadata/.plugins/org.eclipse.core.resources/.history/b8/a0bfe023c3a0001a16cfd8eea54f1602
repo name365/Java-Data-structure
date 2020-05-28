@@ -1,0 +1,15 @@
+package git;
+
+public class Zsort {
+
+	public static void main(String[] args) {
+		int n = 100;
+		int j = 0;
+		for(int i = 1;i <= n;i++){
+			j = i;
+			j++;
+		}
+		System.out.println("j = " + j);
+	}
+
+}
