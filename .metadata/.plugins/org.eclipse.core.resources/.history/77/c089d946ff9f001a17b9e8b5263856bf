@@ -1,0 +1,31 @@
+package github2;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class PolandNotation {
+
+	public static void main(String[] args) {
+		//先定义一个逆波兰表达式
+		//(3+4)x5-6 =》 3 4 + 5 x 6 -
+		//说明:为了方便,逆波兰表达式的数字和符号使用空格隔开
+		String suffiException = "";
+		//具体思路:
+		//1.先将“ 3 4 + 5 x 6 - ” =》 放到ArrayList中
+		//2.将ArrayList传递给一个方法,遍历ArrayList配合栈完成计算
+		
+		List<String> rpnList = getListString(suffiException);
+		System.out.println("rpnList = " + rpnList);
+	}
+
+	//将一个逆波兰表达式,一次将数据和运算符放入ArrayList中
+	public static List<String> getListString(String suffiException){
+		//将suffiException分割
+		String[] split = suffiException.split(" ");
+		List<String> list = new ArrayList<String>();
+		for(String ele:split){
+			list.add(ele);
+		}
+		return list;
+	}
+}

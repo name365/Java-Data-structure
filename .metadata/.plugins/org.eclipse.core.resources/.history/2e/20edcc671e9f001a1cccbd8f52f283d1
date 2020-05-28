@@ -1,0 +1,57 @@
+package github;
+
+public class LinkTest {
+
+}
+//链表操作
+class LinkedListStack {
+  private LinkedList head = new LinkedList(-1);
+  //判断栈空
+  public boolean isEmpty() {
+      return head.next == null;
+  }
+
+  public void push(int num) {
+      if (isEmpty()) {
+          head.next = new LinkedList(num);
+      } else {
+          LinkedList newNum = new LinkedList(num);
+          newNum.next = head.next;
+          head.next = newNum;
+      }
+  }
+
+  public int pop() {
+      if (isEmpty()) {
+          new RuntimeException("栈空");
+      }
+
+      int num = head.next.val;
+      head.next = head.next.next;
+      return num;
+  }
+
+  //遍历stack
+  public void list() {
+      if (isEmpty()) {
+          System.out.println("栈空的！");
+      } else {
+          LinkedList cur = head.next;
+          System.out.println("栈顶到栈底：");
+          while (cur != null) {
+              System.out.println(cur.val);
+              cur = cur.next;
+          }
+      }
+  }
+}
+
+//节点
+class LinkedList {
+  public int val;
+  public LinkedList next;
+
+  public LinkedList(int val) {
+      this.val = val;
+  }
+}

@@ -1,0 +1,17 @@
+package git;
+
+public class RunTest {
+
+	public static void main(String[] args) {
+		//打印问题,递归调用
+		test(4);
+	}
+
+	public static void test(int n) {
+		if (n > 2) {
+			test(n - 1);
+		}
+		System.out.println("n=" + n);
+	}
+
+}

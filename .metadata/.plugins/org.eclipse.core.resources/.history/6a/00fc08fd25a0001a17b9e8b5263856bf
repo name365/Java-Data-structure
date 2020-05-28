@@ -1,0 +1,16 @@
+package git;
+
+public class RunTest {
+
+	public static void main(String[] args) {
+
+	}
+
+	public static void test(int n) {
+		if (n > 2) {
+			test(n - 1);
+		}
+		System.out.println("n=" + n);
+	}
+
+}

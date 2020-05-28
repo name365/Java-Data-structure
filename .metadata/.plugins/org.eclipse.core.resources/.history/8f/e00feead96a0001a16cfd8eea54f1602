@@ -1,0 +1,46 @@
+package github3;
+
+public class Queue8 {
+
+	//定义一个max表示共有多少个皇后
+	int max = 8;
+	//定义一个数组array,保存皇后的地址,如 arr = {0 , 4, 7, 5, 2, 6, 1, 3}
+	int[] array = new int[max];
+	static int count = 0;
+	static int judgeCount = 0;
+	public static void main(String[] args) {
+		//具体测试:
+		
+	}
+	
+	//自定义一个方法,放置n个皇后
+	public void Qnum(int n){
+		
+	}
+	
+	//定义一个方法,判断放置的皇后之间是否产生冲突
+	//n 表示第n个皇后
+	private boolean judge(int n){
+		// 详细说明
+		//1.array[i] == array[n]  表示判断:第n个皇后是否和前面的n-1个皇后在同一列
+		//2.Math.abs(n-i) == Math.abs(array[n] - array[i]) 表示判断:第n个皇后是否和第i皇后是否在同一斜线
+		// n = 1  放置第 2列 1 n = 1 array[1] = 1
+		// Math.abs(1-0) == 1  Math.abs(array[n] - array[i]) = Math.abs(1-0) = 1
+		//3.表示判断:是否在同一行, 没有必要，n 每次都在递增
+		judgeCount++;
+		for(int i = 0; i < n; i++) {
+			if(array[i] == array[n] || Math.abs(n-i) == Math.abs(array[n] - array[i]) ) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	//定义一个方法,将皇后摆放的位置输出
+	public void print(){
+		for(int i = 0;i < array.length;i++){
+			System.out.print(array[i] + " ");
+		}
+		System.out.println();
+	}
+}

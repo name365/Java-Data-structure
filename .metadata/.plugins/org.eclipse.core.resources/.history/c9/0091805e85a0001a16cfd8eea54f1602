@@ -1,0 +1,10 @@
+package github;
+
+public class MaGo {
+
+	public static void main(String[] args) {
+		//先创建一个二维数组
+		
+	}
+
+}
