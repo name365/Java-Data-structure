@@ -1,0 +1,33 @@
+package github2;
+
+public class SelectSort {
+
+	public static void main(String[] args) {
+		int[] arr = {101, 34, 119, 1};
+		
+	}
+
+	// 选择排序
+	public static void selectSort(int[] arr) {
+		// 逐步推导过程
+		// 第1轮
+		// 原始数组: 101, 34, 119, 1
+		// 第一轮排序: 1, 34, 119, 101
+		// 算法思维:先简单--》再复杂,即复杂的算法拆分为简单的问题,再逐步解决
+		
+		// 第一轮
+		int minIndex = 0;
+		int min = arr[0];	//假设某个为最小值
+		for(int j = 0 + 1;j < arr.length;j++){
+			if(min > arr[j]){	//说明假定的最小值,并不是最小
+				min = arr[j];	//重置最小值
+				minIndex = j;	//重置minIndex
+			}
+		}
+		
+		//将最小值放在arr[0],即交换
+		arr[minIndex] = arr[0];
+		
+	}
+
+}

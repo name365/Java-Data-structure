@@ -1,0 +1,15 @@
+package github5;
+
+public class QuackSort {
+
+	public static void main(String[] args) {
+		int[] arr = {-9,78,0,23,-567,70};
+		
+	}
+	
+	//
+	public static void quackSort(){
+		
+	}
+
+}

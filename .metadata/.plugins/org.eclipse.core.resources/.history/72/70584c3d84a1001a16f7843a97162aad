@@ -1,0 +1,29 @@
+package github5;
+
+public class QuackSort {
+
+	public static void main(String[] args) {
+		int[] arr = {-9,78,0,23,-567,70};
+		
+		quackSort(arr);
+	}
+	
+	//
+	public static void quackSort(int[] arr,int left,int right){
+		int l = left;	//左索引
+		int r = right;	//右索引
+		int pivot = arr[(left + right) / 2];	//pivot 中轴		
+		//while循环的目的:让,比pivot 值小的放到左边,比pivot 值大的放到右边
+		while(l < r){	
+			//在pivot左边一直找,找到一个大于等于pivot的值,才退出
+			while(arr[l] < pivot){
+				l += 1;
+			}
+			//在pivot右边一直找,找到一个小于等于pivot的值,才退出
+			while(arr[r] > pivot){
+				l -= 1;
+			}
+		}
+	}
+
+}

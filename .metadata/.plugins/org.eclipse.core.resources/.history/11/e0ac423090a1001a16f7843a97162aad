@@ -1,0 +1,10 @@
+package github6;
+
+public class MergetSort {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

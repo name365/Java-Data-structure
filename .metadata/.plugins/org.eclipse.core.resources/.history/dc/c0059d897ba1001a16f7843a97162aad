@@ -1,0 +1,27 @@
+package github4;
+
+public class ShellSort {
+
+	public static void main(String[] args) {
+		int[] arr = { 8, 9, 1, 7, 2, 3, 5, 4, 6, 0 };
+
+	}
+
+	// 逐步推导的方式——希尔排序
+	public static void shellSort(int[] arr) {
+		int temp = 0;
+		// 第1轮排序: 将10个数据分为5组
+		for (int i = 5; i < arr.length; i++) {
+			// 遍历各组中所有的元素(共5组,每组两个元素),步长是5
+			for (int j = i - 5; j >= arr.length; j -= 5) {
+				// 如果当前的元素大于加上步长后的元素,即交换
+				if (arr[j] > arr[j + 5]) {
+					temp = arr[j];
+					arr[j] = arr[j + 5];
+					arr[j + 5] = temp;
+				}
+			}
+		}
+	}
+
+}

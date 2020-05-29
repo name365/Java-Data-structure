@@ -1,0 +1,20 @@
+package github3;
+
+public class InsertSort {
+
+	public static void main(String[] args) {
+		int[] arr = {101, 34, 119, 1};
+	}
+	//插入排序
+	public static void inserSort(int[] arr){
+		//使用逐步推到的过程
+		//第1轮{101, 34, 119, 1}; =》 {34, 101, 119, 1};
+		
+		//定义待插入的数
+		int insertVal = arr[1];
+		int insertIndex = 1 - 1;	//即arr[1]的前面这个数的下标
+		
+		
+	}
+
+}

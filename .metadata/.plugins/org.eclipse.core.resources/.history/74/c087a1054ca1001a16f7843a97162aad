@@ -1,0 +1,14 @@
+package github3;
+
+public class InsertSort {
+
+	public static void main(String[] args) {
+		
+	}
+	//插入排序
+	public static void inserSort(int[] arr){
+		//使用逐步推到的过程
+		
+	}
+
+}

@@ -1,0 +1,35 @@
+package github4;
+
+import java.util.Arrays;
+
+public class ShellSort2 {
+
+	public static void main(String[] args) {
+		int[] arr = { 8, 9, 1, 7, 2, 3, 5, 4, 6, 0 };
+		
+		shellSort(arr);	//调用排序
+	}
+
+	// 逐步推导的方式——希尔排序
+	public static void shellSort(int[] arr) {
+		
+		//使用循环处理
+		int temp = 0;
+		int count = 0;	//统计排序次数
+		for(int num = arr.length / 2;num > 0;num /= 2){
+			for (int i = num; i < arr.length; i++) {
+				// 遍历各组中所有的元素(共num组,每组?个元素),步长是num
+				for (int j = i - num; j >= 0; j -= num) {
+					// 如果当前的元素大于加上步长后的元素,即交换
+					if (arr[j] > arr[j + num]) {
+						temp = arr[j];
+						arr[j] = arr[j + num];
+						arr[j + num] = temp;
+					}
+				}
+			}
+			System.out.println("第"+ (++count) +"轮排序:" + Arrays.toString(arr));
+		}
+		
+	}
+}
