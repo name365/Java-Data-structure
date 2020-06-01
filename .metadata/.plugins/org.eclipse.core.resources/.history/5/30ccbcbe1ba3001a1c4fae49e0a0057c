@@ -1,0 +1,9 @@
+package github;
+//注意:使用二分查找的数组,必须是有序的。
+public class BinarySearch {
+
+	public static void main(String[] args) {
+		int arr[] = {};
+	}
+
+}

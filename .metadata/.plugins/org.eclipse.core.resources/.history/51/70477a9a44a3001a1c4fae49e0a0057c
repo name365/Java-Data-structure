@@ -1,0 +1,15 @@
+package github2;
+
+import java.util.Arrays;
+
+public class InsertValueSearch {
+
+	public static void main(String[] args) {
+		int arr[] = new int[100];
+		for(int i = 1;i <= 100;i++){
+			arr[i] = i + 1;
+		}
+		System.out.println(Arrays.toString(arr));
+	}
+
+}

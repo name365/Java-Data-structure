@@ -1,0 +1,43 @@
+package github2;
+
+public class FibSearch {
+
+	public static int maxSize = 20;
+	public static void main(String[] args) {
+		int arr[] = {1,8, 10, 89, 1000, 1234};
+		
+	}
+	
+	//因为后面需要使用公式 mid=low+F(k-1)-1,因此需要先获取到一个斐波那契数列
+	//用非递归方法得到一个斐波那契数列
+	public static int[] fib(){
+		int f[] = new int[maxSize];
+		f[0] = 1;
+		f[1] = 1;
+		for (int i = 2; i < maxSize; i++) {
+			f[i] = f[i - 1] + f[i - 2];
+		}
+		return f;
+	}
+	
+	/**
+	  * 
+	  * @Description 使用非递归的方式编写斐波那契算法
+	  * @author subei
+	  * @date 2020年5月31日下午10:20:37
+	  * @param a 数组
+	  * @param key 需要查找的关键码(值)
+	  * @return 返回对应的下标,如果没有-1
+	 */
+	public static int fibS(int[] a,int key){
+		int low = 0;
+		int hight = a.length - 1;
+		int  k = 0;	//斐波那契数列的下标
+		int mid = 0;	//存放mid值
+		int f[] = fib();	//获取到斐波那契数列
+		// 获取到斐波那契分割数值的下标
+		while(hight > f[k] - 1){
+				
+		}
+	}
+}
