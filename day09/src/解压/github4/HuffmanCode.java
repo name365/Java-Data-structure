@@ -16,6 +16,41 @@ public class HuffmanCode {
 		
 		byte[] hfCoBytes = hfZip(bytes);
 		System.out.println("压缩后的结果=" + Arrays.toString(hfCoBytes) + "长度是:" + hfCoBytes.length);
+		
+		//测试byToBitString方法
+		System.out.println(byToBitString(false, (byte)-1));
+	}
+	
+	//完成数据的解压
+	//思路
+	//1.将hfCoBytes[-88, -65, -56, -65, -56, -65, -55, 77, -57, 6, -24, -14, -117, -4, -60, -90, 28]
+	//  重写先转成赫夫曼编码对应的二进制的字符串 "1010100010111..."
+	//2.赫夫曼编码对应的二进制的字符串 "1010100010111..." =》 对照 赫夫曼编码  =》 "i like like like java do you like a java"
+	
+	/**
+	  * 将一个byte 转成一个二进制的字符串, 如果看不懂,可以参考我的笔记:Java基础二进制的原码,反码,补码
+	  * @Description 
+	  * @author subei
+	  * @date 2020年6月10日上午8:31:31
+	  * @param b 传入的 byte
+	  * @param flag 标志是否需要补高位如果是true ,表示需要补高位,如果是false表示不补, 如果是最后一个字节,无需补高位
+	  * @return 是该b 对应的二进制的字符串(注意是按补码返回)
+	 */
+	private static String byToBitString(boolean flag,byte b){
+		//使用变量保存
+		int temp = b;	//将b转成int
+		
+		//如果是正数我们还存在补高位
+		if(flag){
+			temp |= 256;	//按位与256 1 0000 0000 | 0000 0001 ==》 1 0000 0001
+		}
+		String str = Integer.toBinaryString(temp);	//返回temp对应的二进制补码
+		if(flag){
+			return str.substring(str.length() - 8);				
+		}else{
+			return str;
+		}
+			
 	}
 	
 	//使用一个方法,将前面的方法封装起来,便于我们的调用.
@@ -199,16 +234,6 @@ public class HuffmanCode {
 		//nodes 最后的结点,就是赫夫曼树的根结点
 		return nodes.get(0);
 	}
-	
-	//前序遍历方法
-	private static void preOrder(Node root){
-		if(root != null){
-			root.preOrder();
-		}else{
-			System.out.println("赫夫曼树为空！！！");
-		}
-	}
-
 }
 //创建Node,存放数据和权值
 class Node implements Comparable<Node>{

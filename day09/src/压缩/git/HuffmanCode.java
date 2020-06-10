@@ -79,15 +79,6 @@ public class HuffmanCode {
 		//nodes 最后的结点,就是赫夫曼树的根结点
 		return nodes.get(0);
 	}
-	
-	//前序遍历方法
-	private static void preOrder(Node root){
-		if(root != null){
-			root.preOrder();
-		}else{
-			System.out.println("赫夫曼树为空！！！");
-		}
-	}
 
 }
 //创建Node,存放数据和权值

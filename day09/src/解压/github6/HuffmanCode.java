@@ -1,7 +1,10 @@
-package 压缩.github2;
+package 解压.github6;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -10,28 +13,80 @@ import java.util.Map;
 public class HuffmanCode {
 
 	public static void main(String[] args) {
-		String str = "i like like like java do you like a java";
-		byte[] bytes = str.getBytes();
-		System.out.println("字符串长度:" + bytes.length);	//40
+		//测试压缩文件
+		String srcFile = "D://subei.xml";
+		String dstFile = "D://Uninstall.zip";
 		
-		//如何将 数据进行解压(解码)  
-		//分步过程
+		zipFile(srcFile, dstFile);
+		System.out.println("压缩文件ok~~");
+				
+	}
+	
+	//编写一个方法进行文件压缩
+	/**
+	  * 
+	  * @Description 
+	  * @author subei
+	  * @date 2020年6月10日上午9:44:35
+	  * @param srcFile 传入需要压缩文件的路径
+	  * @param dstFile 压缩后文件的保存路径
+	 */
+	public static void zipFile(String srcFile,String dstFile){
+		//创建输入流
+		FileInputStream is = null;
+		//创建输出流
+		OutputStream os = null;
+		ObjectOutputStream oos = null;
+		try {			
+			//创建文件的输入流
+			is = new FileInputStream(srcFile);
+			//创建一个和源文件大小一样的byte[]
+			byte[] b = new byte[is.available()];
+			//读取文件
+			is.read(b);
+			//直接对源文件压缩
+			byte[] hfBytes = hfZip(b);
+			//创建文件的输出流
+			os = new FileOutputStream(dstFile);
+			//创建一个和文件输出流关联的ObjectOutputStream
+			oos = new ObjectOutputStream(os);
+			//把赫夫曼编码后的字节数组写入压缩文件
+			oos.writeObject(hfBytes); 
+			//这里我们以对象流的方式写入赫夫曼编码,是为了以后我们恢复源文件时使用
+			//注意一定要把赫夫曼编码 写入压缩文件
+			oos.writeObject(huffCodes);
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally{
+			try {
+				is.close();
+				oos.close();
+				os.close();
+			}catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
+	}
+	
+	//使用一个方法,将前面的方法封装起来,便于我们的调用.
+	/**
+	  * 
+	  * @Description 
+	  * @author subei
+	  * @date 2020年6月9日下午6:50:14
+	  * @param bytes 原始的字符串对应的字节数组
+	  * @return 经过赫夫曼编码处理后的字节数组(即压缩后的数组)
+	 */
+	private static byte[] hfZip(byte[] bytes){
 		List<Node> nodes = getNodes(bytes);
-		System.out.println("nodes = " + nodes);
-		
-		//创建的二叉树
-		System.out.println("赫夫曼树");
+		//根据 nodes 创建的赫夫曼树
 		Node hfTree = createHFTree(nodes);
-		System.out.println("前序遍历赫夫曼树:");
-		hfTree.preOrder();
-		
-		//验证是否生成对应的赫夫曼编码
+		//对应的赫夫曼编码(根据 赫夫曼树)
 		Map<Byte, String> hfCodes = getCodes(hfTree);
-		System.out.println("生成的赫夫曼编码表:" + hfCodes);
-		
-		//测试
+		//根据生成的赫夫曼编码,压缩得到压缩后的赫夫曼编码字节数组
 		byte[] hfCodeBytes = zip(bytes, hfCodes);
-		System.out.println("hfCodeBytes=" + Arrays.toString(hfCodeBytes));//17
+		return hfCodeBytes;
 	}
 	
 	//编写一个方法,将字符串对应的byte[]数组,通过生成的赫夫曼编码表,返回一个赫夫曼编码压缩后的byte[]
@@ -62,6 +117,8 @@ public class HuffmanCode {
 		for(byte b : bytes){
 			stringBuilder.append(hfCodes.get(b));
 		}
+		
+//		System.out.println("测试 stringBuilder=" + stringBuilder.toString());
 		
 		//将 "1010100010111111110..." 转成 byte[]
 		//统计返回  byte[] hfCodeBytes 长度

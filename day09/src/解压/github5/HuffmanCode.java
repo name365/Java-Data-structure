@@ -1,4 +1,4 @@
-package 压缩.github2;
+package 解压.github5;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,24 +14,128 @@ public class HuffmanCode {
 		byte[] bytes = str.getBytes();
 		System.out.println("字符串长度:" + bytes.length);	//40
 		
-		//如何将 数据进行解压(解码)  
-		//分步过程
+		byte[] hfCoBytes = hfZip(bytes);
+		System.out.println("压缩后的结果=" + Arrays.toString(hfCoBytes) + "长度是:" + hfCoBytes.length);
+		
+		//测试byToBitString方法
+//		System.out.println(byToBitString(false, (byte)-1));
+		byte[] decode = decode(huffCodes, hfCoBytes);
+		System.out.println("原来的字符串=" + new String(decode));
+		
+	}
+	
+	//编写一个方法,完成对压缩数据的解码
+	/**
+	  * 
+	  * @Description 
+	  * @author subei
+	  * @date 2020年6月10日上午8:54:55
+	  * @param hfCodes 赫夫曼编码表 map
+	  * @param hfBytes 赫夫曼编码得到的字节数组
+	  * @return 就是原来的字符串对应的数组
+	 */
+	private static byte[] decode(Map<Byte,String> hfCodes, byte[] hfBytes) {
+		//1.先得到 hfCoBytes对应的 二进制的字符串 , 形式 1010100010111...
+		StringBuilder builder = new StringBuilder();
+		
+		//将byte数组转成二进制的字符串
+		for(int i = 0; i < hfBytes.length; i++) {
+			byte b = hfBytes[i];
+			//判断是不是最后一个字节
+			boolean flag = (i == hfBytes.length - 1);
+			builder.append(byToBitString(!flag, b));
+		}
+//		System.out.println("二进制字符串="+builder.toString());
+		
+		//把字符串安装指定的赫夫曼编码进行解码
+		//把赫夫曼编码表进行调换,因为反向查询 a->100 100->a
+		Map<String, Byte>  map = new HashMap<String,Byte>();
+		for(Map.Entry<Byte, String> entry: hfCodes.entrySet()) {
+			map.put(entry.getValue(), entry.getKey());
+		}
+		
+		//创建要给集合,存放byte
+		List<Byte> list = new ArrayList<>();
+		//i 可以理解成就是索引,扫描 builder 
+		for(int  i = 0; i < builder.length(); ) {
+			int count = 1; 	//小的计数器
+			boolean flag = true;
+			Byte b = null;
+			
+			while(flag) {
+				//1010100010111... 递增的取出 key 1 
+				String key = builder.substring(i, i+count);	//i 不动,让count移动,指定匹配到一个字符
+				b = map.get(key);
+				if(b == null) {	//说明没有匹配到
+					count++;
+				}else {	//匹配到了
+					flag = false;
+				}
+			}
+			list.add(b);
+			i += count;//i 直接移动到 count	
+		}
+		
+		//当for循环结束后,我们list中就存放了所有的字符  "i like like like java do you like a java"
+		//把list 中的数据放入到byte[] 并返回
+		byte b[] = new byte[list.size()];
+		for(int i = 0;i < b.length; i++) {
+			b[i] = list.get(i);
+		}
+		return b;
+//		return null;
+	}
+	
+	//完成数据的解压
+	//思路
+	//1.将hfCoBytes[-88, -65, -56, -65, -56, -65, -55, 77, -57, 6, -24, -14, -117, -4, -60, -90, 28]
+	//  重写先转成赫夫曼编码对应的二进制的字符串 "1010100010111..."
+	//2.赫夫曼编码对应的二进制的字符串 "1010100010111..." =》 对照 赫夫曼编码  =》 "i like like like java do you like a java"
+	
+	/**
+	  * 将一个byte 转成一个二进制的字符串, 如果看不懂,可以参考我的笔记:Java基础二进制的原码,反码,补码
+	  * @Description 
+	  * @author subei
+	  * @date 2020年6月10日上午8:31:31
+	  * @param b 传入的 byte
+	  * @param flag 标志是否需要补高位如果是true ,表示需要补高位,如果是false表示不补, 如果是最后一个字节,无需补高位
+	  * @return 是该b 对应的二进制的字符串(注意是按补码返回)
+	 */
+	private static String byToBitString(boolean flag,byte b){
+		//使用变量保存
+		int temp = b;	//将b转成int
+		
+		//如果是正数我们还存在补高位
+		if(flag){
+			temp |= 256;	//按位与256 1 0000 0000 | 0000 0001 ==》 1 0000 0001
+		}
+		String str = Integer.toBinaryString(temp);	//返回temp对应的二进制补码
+		if(flag){
+			return str.substring(str.length() - 8);				
+		}else{
+			return str;
+		}
+			
+	}
+	
+	//使用一个方法,将前面的方法封装起来,便于我们的调用.
+	/**
+	  * 
+	  * @Description 
+	  * @author subei
+	  * @date 2020年6月9日下午6:50:14
+	  * @param bytes 原始的字符串对应的字节数组
+	  * @return 经过赫夫曼编码处理后的字节数组(即压缩后的数组)
+	 */
+	private static byte[] hfZip(byte[] bytes){
 		List<Node> nodes = getNodes(bytes);
-		System.out.println("nodes = " + nodes);
-		
-		//创建的二叉树
-		System.out.println("赫夫曼树");
+		//根据 nodes 创建的赫夫曼树
 		Node hfTree = createHFTree(nodes);
-		System.out.println("前序遍历赫夫曼树:");
-		hfTree.preOrder();
-		
-		//验证是否生成对应的赫夫曼编码
+		//对应的赫夫曼编码(根据 赫夫曼树)
 		Map<Byte, String> hfCodes = getCodes(hfTree);
-		System.out.println("生成的赫夫曼编码表:" + hfCodes);
-		
-		//测试
+		//根据生成的赫夫曼编码,压缩得到压缩后的赫夫曼编码字节数组
 		byte[] hfCodeBytes = zip(bytes, hfCodes);
-		System.out.println("hfCodeBytes=" + Arrays.toString(hfCodeBytes));//17
+		return hfCodeBytes;
 	}
 	
 	//编写一个方法,将字符串对应的byte[]数组,通过生成的赫夫曼编码表,返回一个赫夫曼编码压缩后的byte[]
@@ -62,6 +166,8 @@ public class HuffmanCode {
 		for(byte b : bytes){
 			stringBuilder.append(hfCodes.get(b));
 		}
+		
+//		System.out.println("测试 stringBuilder=" + stringBuilder.toString());
 		
 		//将 "1010100010111111110..." 转成 byte[]
 		//统计返回  byte[] hfCodeBytes 长度
